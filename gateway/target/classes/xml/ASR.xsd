@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="serviceSpecificFormName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASR" />
+			<xs:enumeration value="Trunking" />
+			<xs:enumeration value="Transport" />
+			<xs:enumeration value="EUSA" />
+			<xs:enumeration value="FGA" />
+			<xs:enumeration value="Ring" />
+			<xs:enumeration value="WAL" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="additionalFormName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACI" />
+			<xs:enumeration value="ARI" />
+			<xs:enumeration value="SALI" />
+			<xs:enumeration value="MSL" />
+			<xs:enumeration value="EOD" />
+			<xs:enumeration value="EVC" />
+			<xs:enumeration value="Multi EC" />
+			<xs:enumeration value="TQ" />
+			<xs:enumeration value="VC" />
+			<xs:enumeration value="TQ" />
+			<xs:enumeration value="PC" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="attrType">
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="value" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="serviceSpecificFormType">
+		<xs:sequence>
+			<xs:element name="attr" type="attrType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="type" type="serviceSpecificFormName" />
+	</xs:complexType>
+
+	<xs:complexType name="additionalFormType">
+		<xs:sequence>
+			<xs:element name="attr" type="attrType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="type" type="additionalFormName" />
+	</xs:complexType>
+
+	<xs:complexType name="configurationType">
+		<xs:sequence>
+			<xs:element name="serviceForm" type="serviceSpecificFormType"
+				minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="additionalForm" type="additionalFormType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="configuration" type="configurationType" />
+</xs:schema>

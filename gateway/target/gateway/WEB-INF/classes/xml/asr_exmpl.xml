@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ASR.xsd">
+
+	<serviceForm type="ASR">
+		<attr name="CCNA"    value="" />
+		<attr name="PON"     value="" />
+		<attr name="VER"     value="" />
+		<attr name="ASR NO"  value="" />
+		<attr name="SPA"     value="" />
+		<attr name="ICSC"    value="" />
+		<attr name="CC"      value="" />
+		<attr name="UNE"     value="" />
+		<attr name="D/TSENT" value="" />
+		<attr name="QA"      value="" />
+		<attr name="CBD"     value="" />
+		<attr name="DDD"     value="" />
+		<attr name="FDT"     value="" />
+		<attr name="PROJECT" value="" />
+		<attr name="CCI"     value="" />
+		<attr name="CNO"     value="" />
+		<attr name="PPTD"    value="" />
+		<attr name="NOR"     value="" />
+		<attr name="LUP"     value="" />
+		<attr name="BSA"     value="" />
+		<attr name="INIT"        value="" />
+		<attr name="TEL NO"      value="" />
+		<attr name="INIT FAX NO" value="" />
+		<attr name="INIT EMAIL"  value="" />
+	</serviceForm>
+
+	<serviceForm type="Trunking">
+		<attr name="CFA" value="" />
+		<attr name="CFAU" value="" />
+		<attr name="CPT" value="" />
+		<attr name="MUXLOC" value="" />
+		<attr name="CSL" value="" />
+		<attr name="CST" value="" />
+		<attr name="CSPC" value="" />
+		<attr name="SECLOC" value="" />
+		<attr name="SMUXLOC" value="" />
+		<attr name="SCFA" value="" />
+		<attr name="HBAN" value="" />
+		<attr name="SFNI" value="" />
+		<attr name="CCEA" value="" />
+		<attr name="CKR" value="" />
+		<attr name="CKR1" value="" />
+		<attr name="NC" value="" />
+		<attr name="NC Code" value="" />
+		<attr name="NC1" value="" />
+		<attr name="NC1 Code" value="" />
+	</serviceForm>
+
+	<additionalForm type="ACI">
+		<attr name="CKR" value="" />
+		<attr name="REF NUM" value="" />
+		<attr name="CKTACT" value="" />
+		<attr name="CFA" value="" />
+		<attr name="DIR" value="" />
+		<attr name="CPT" value="" />
+		<attr name="CFAU" value="" />
+		<attr name="HBAN" value="" />
+		<attr name="CKR1" value="" />
+		<attr name="TSP" value="" />
+		<attr name="SCFA" value="" />
+		<attr name="SDIR" value="" />
+		<attr name="TCIC" value="" />
+		<attr name="JK CODE" value="" />
+		<attr name="JK NUM" value="" />
+		<attr name="JK POS" value="" />
+		<attr name="JS" value="" />
+	</additionalForm>
+
+	<additionalForm type="SALI">
+		<attr name="REF NUM" value="" />
+		<attr name="EUNAME" value="" />
+		<attr name="PI" value="" />
+		<attr name="AFT" value="" />
+		<attr name="SAPR" value="" />
+		<attr name="SASF" value="" />
+		<attr name="SASN" value="" />
+		<attr name="SASS" value="" />
+		<attr name="SAND" value="" />
+		<attr name="SANO" value="" />
+		<attr name="CITY" value="" />
+		<attr name="STATE" value="" />
+		<attr name="ZIP" value="" />
+	</additionalForm>
+</configuration>

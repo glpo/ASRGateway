@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ASRValidationConfiguration.xsd">
+<!-- Tables: 
+		1. Access Change Request (ASR) Form validation rules 
+		2. Trunking Form Validation Rules 
+		3. End User Special Access (EUSA) Form Validation Rules 
+		4. Transport Form Validation rules 
+		5. WATS Access Line (WAL) Form Validation Rules 
+		6. Ring Form Validation Rules 
+		7. Feature Group A (FGA) From Validation rules 
+        
+        A1. Additional Circuit Information (ACI) Form validation rules 
+        A2. Service Address Location Information (SALI) Form Validation Rules  - was fully reviewed on UATs by [vovo]
+        A3. Translation Questionnaire (TQ) Form Validation Rules [09.12.13 reviewed]
+        A4. End Office Details (EOD) Form Validation Rules 
+        A5. Multiple Exchange Company (MULT_EC) Form Validation Rules 
+        A6. Additional Ring Information (ARI) Form Validation Rules 
+        A7. Virtual Concatenation (VCAT) Form Validation Rules 
+        A8. Ethernet Virtual Connection (EVC) Form Validation Rules 
+        A9. Virtual Connection (VC) Form Validation Rules 
+		A10. Port Configuration (PC) Form Validation Rules 
+        A11. Multipoint Service Legs (MSL) Form Validation Rules 
+        A12. Network Assignment information (NAI) Form Validation Rules		
+	-->
+
+	<form name="ASR">
+		<validator name="1_QA" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>QA</id><!-- 1_QA -->
+			</target_attributes>
+			<optional>
+				<attr id="ACT" operator="in"><!-- ACT - list type -->
+					<value>N</value><!-- N -->
+					<value>C</value><!-- C -->
+					<value>T</value><!-- T -->
+				</attr>
+			</optional>
+			<prohibited
+				error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - the ACT filed is not in N, C or T.">
+				<otherwise />
+			</prohibited>
+		</validator>
+
+		<validator name="DDD" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>DDD</id> <!-- DDD -->
+			</target_attributes>
+
+			<required error_message="'${attr}' is empty on ${form}">
+				<attr id="DDD" operator="empty" /><!-- DDD -->
+			</required>
+		</validator>
+
+		<validator name="1_FDT" class="com.glpo.gateway.oc.GenericParameterValidator">
+
+			<target_attributes>
+				<id>FDT</id> <!-- 1_FDT -->
+			</target_attributes>
+
+			<required error_message="'${attr}' should be filled on '${form}' cause &lt;br&gt; - the CB TEl NO filled.">
+				<attr id="TEL NO" operator="not empty" /> <!-- CB TEL NO -->
+			</required>
+
+			<optional>
+				<otherwise />
+			</optional>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - ACT field is R.">
+				<attr id="ACT" operator="in">	<!-- ACT - list type -->
+					<value>R</value> <!-- R -->
+				</attr>
+			</prohibited>
+		</validator>
+
+		<validator name="1_PROJECT" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>PROJECT</id> <!-- 1_PROJECT masked type -->
+			</target_attributes>
+
+			<required
+				error_message="'${attr}' should be filled on '${form}' cause &lt;br&gt; - the ACT is N or D,
+			&lt;br&gt; - the CCVN filled.">
+				<attr id="ACT" operator="in"> <!-- ACT - list type -->
+					<value>N</value><!-- N -->
+					<value>D</value><!-- D -->
+				</attr>
+
+				<attr id="CCVN" operator="not empty" /><!-- CCVN -->
+			</required>
+
+			<optional>
+				<otherwise />
+			</optional>
+		</validator>
+
+		<validator name="1_CCI" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>CCI</id> <!-- CCI - list type -->
+			</target_attributes>
+
+			<optional>
+				<attr id="REQTYP" operator="in"> <!-- REQTYP (1) - list type -->
+					<value>E</value> <!-- E -->
+					<value>M</value> <!-- M -->
+					<value>L</value> <!-- L -->
+					<value>S</value> <!-- S -->
+					<value>V</value> <!-- V -->
+					<value>X</value> <!-- X -->
+				</attr>
+				<attr id="ACT" operator="in"> <!-- ACT - list type -->
+					<value>N</value> <!-- N -->
+					<value>C</value> <!-- C -->
+					<value>D</value> <!-- D -->
+					<value>T</value> <!-- T -->
+					<value>M</value> <!-- M -->
+				</attr>
+			</optional>
+
+			<prohibited
+				error_message="'${attr}' should not be filled on '${form}'  cause &lt;br&gt; -  REQTYP (1) isn`t set to: E,L,M,S,V or X &lt;br&gt; -  ACT isn`t set to N,C,D,T or M">
+				<otherwise />
+			</prohibited>
+		</validator>
+
+		<validator name="1_PPTD" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>PPTD</id> <!-- PPTD -->
+			</target_attributes>
+
+			<optional>				
+				<attr id="PROJECT" operator="not empty" /> <!-- PROJECT -->
+			</optional>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - the PROJECT not filled. ">
+				<otherwise />
+			</prohibited>
+		</validator>
+
+		<validator name="1_LUP" class="com.glpo.gateway.oc.GenericParameterValidator">
+			<target_attributes>
+				<id>LUP</id><!-- LUP -->
+			</target_attributes>
+
+			<optional>
+				<otherwise />
+			</optional>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - the PIU field should be filled.">
+				<attr id="PIU" operator="empty" />
+			</prohibited>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - the PIU field is 100.">
+				<attr id="PIU" operator="in"><!-- PIU -->
+					<value>100</value><!-- 100 -->
+				</attr>
+			</prohibited>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}' cause &lt;br&gt; - 00the REQTYP(1) field is R.">
+				<attr id="REQTYP" operator="in"><!-- REQTYP(1) -->
+					<value>R</value><!-- R -->
+				</attr>
+			</prohibited>
+
+			<prohibited error_message="'${attr}' should not be filled on '${form}'  cause &lt;br&gt; -  ACT field is D">
+				<attr id="ACT" operator="in"><!-- ACT -->
+					<value>D</value><!-- D -->
+				</attr>
+			</prohibited>
+		</validator>
+	</form>
+</configuration>

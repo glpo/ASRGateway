@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:simpleType name="operationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="in" />
+			<xs:enumeration value="not in" />
+			<xs:enumeration value="empty" />
+			<xs:enumeration value="not empty" />
+			<xs:enumeration value="equals" />
+			<xs:enumeration value="not equals" />
+			<xs:enumeration value="eq" />
+			<xs:enumeration value="lt" />
+			<xs:enumeration value="gt" />
+			<xs:enumeration value="le" />
+			<xs:enumeration value="ge" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="kindType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="name" />
+			<xs:enumeration value="one" />
+			<xs:enumeration value="all" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="idType">
+		<xs:restriction base="xs:string" />		
+	</xs:simpleType>
+
+	<xs:simpleType name="formNameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASR" />
+			<xs:enumeration value="Trunking" />
+			<xs:enumeration value="Transport" />
+			<xs:enumeration value="EUSA" />
+			<xs:enumeration value="FGA" />
+			<xs:enumeration value="Ring" />
+			<xs:enumeration value="WAL" />
+			<xs:enumeration value="ACI" />
+			<xs:enumeration value="ARI" />
+			<xs:enumeration value="NAI" />
+			<xs:enumeration value="SALI" />
+			<xs:enumeration value="MSL" />
+			<xs:enumeration value="EOD" />
+			<xs:enumeration value="EVC" />
+			<xs:enumeration value="Multi EC" />
+			<xs:enumeration value="VCAT" />
+			<xs:enumeration value="TQ" />
+			<xs:enumeration value="VC" />
+			<xs:enumeration value="PC" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="attrType">
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="id" type="idType" />
+		<xs:attribute name="operator" type="operationType" />
+		<xs:attribute name="start_pos" type="xs:positiveInteger" />
+		<xs:attribute name="end_pos" type="xs:positiveInteger" />
+		<xs:attribute name="kind" type="kindType" />
+		<xs:attribute name="form" type="formNameType" />
+	</xs:complexType>
+
+	<xs:complexType name="otherwiseType">
+		<xs:sequence />
+	</xs:complexType>
+
+	<xs:complexType name="optionalType">
+		<xs:sequence>
+			<xs:element name="attr" type="attrType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="otherwise" type="otherwiseType"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="acceptable_valuesType">
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="requiredAndProhibitedType">
+		<xs:sequence>
+			<xs:element name="acceptable_values" type="acceptable_valuesType"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="attr" type="attrType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="otherwise" type="otherwiseType"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="error_message" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="idTagType">
+		<xs:simpleContent>
+			<xs:extension base="idType">
+				<xs:attribute name="start_pos" type="xs:positiveInteger" />
+				<xs:attribute name="end_pos" type="xs:positiveInteger" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="target_attributesType">
+		<xs:sequence>
+			<xs:element name="id" type="idTagType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="additional_paramsType">
+		<xs:sequence>
+			<xs:any minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="validatorType">
+		<xs:sequence>
+			<xs:element name="target_attributes" type="target_attributesType"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="additional_params" type="additional_paramsType"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element name="required" type="requiredAndProhibitedType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="optional" type="optionalType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="prohibited" type="requiredAndProhibitedType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="class" type="xs:string" />
+	</xs:complexType>
+
+	<xs:complexType name="formType">		
+		<xs:sequence>
+			<xs:element name="validator" type="validatorType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="formNameType" />
+	</xs:complexType>
+
+	<xs:complexType name="configurationType">
+		<xs:sequence>
+			<xs:element name="form" type="formType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="configuration" type="configurationType" />
+</xs:schema>
